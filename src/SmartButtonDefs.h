@@ -13,7 +13,11 @@ constexpr unsigned long DEFAULT_HOLD_REPEAT_PERIOD = 200UL;
 constexpr unsigned long DEFAULT_LONG_HOLD_REPEAT_PERIOD = 50UL;
 
 constexpr unsigned long (*getTickValue)() = millis;
-constexpr bool (*getGpioState)(int) = digitalRead;
+#if defined(ARDUINO_NANO_RP2040_CONNECT)
+  constexpr PinStatus (*getGpioState)(pin_size_t) = digitalRead;
+#else
+  constexpr bool (*getGpioState)(int) = digitalRead;
+#endif
 
 };
 
